@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les aliments{% endblock %}
+{% block monTitle %} mon titre ma liste des aliments{% endblock %}
+
+{% block body %}
+<div class="row">
+    {% for alim in alims %}
+    <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+        <div class="card border-primary mb-3 mx-auto" style="max-width:20rem">
+            <div class="card-header text-center">
+                <img src="{{asset('img/'~ alim.img)}}" class="perso_imgAlim card-img-top" alt="">
+            </div>
+            <div class="card-body">
+                <h3 class="card-title text-center pb-2 mx-3 border-bottom border-primary">{{alim.name}}</h3>
+                <p class="card-text">
+                    <h4 class="text-center">prix au kilo : {{alim.price}}</h4>
+                    <table>
+                        <tr>
+                            <td>Propriétées</td>
+                            <td>Valeur au 100g</td>
+                        </tr>
+                        <tr>
+                            <td>Calories</td>
+                            <td>{{alim.calorie}}</td>
+                        </tr>
+                        <tr>
+                            <td>Proteines</td>
+                            <td>{{alim.proteine}}</td>
+                        </tr>
+                        <tr>
+                            <td>Glucide</td>
+                            <td>{{alim.glucides}}</td>
+                        </tr>
+                        <tr>
+                            <td>Lipide</td>
+                            <td>{{alim.lipides}}</td>
+                        </tr>
+                    </table>
+                </p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+    
+{% endblock %}

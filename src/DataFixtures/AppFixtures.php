@@ -57,7 +57,7 @@ class AppFixtures extends Fixture
         $a4->setName('Patate')
             ->setCalorie(45)
             ->setPrice(4.80)
-            ->setImg("aliments/patate.png")
+            ->setImg("aliments/patate.jpg")
             ->setProteine(0.77)
             ->setGlucides(0.23)
             ->setLipides(0.9);
