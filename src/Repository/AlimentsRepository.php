@@ -19,6 +19,19 @@ class AlimentsRepository extends ServiceEntityRepository
         parent::__construct($registry, Aliments::class);
     }
 
+
+    public function findAliByProperties($propertie,$signe,$calorie){
+
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.'.$propertie. ' ' . $signe.' :val')
+            ->setParameter('val', $calorie)
+
+            ->getQuery()
+            ->getResult()
+        ;
+
+    }
+
     // /**
     //  * @return Aliments[] Returns an array of Aliments objects
     //  */

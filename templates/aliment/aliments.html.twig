@@ -1,9 +1,22 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Les aliments{% endblock %}
-{% block monTitle %} mon titre ma liste des aliments{% endblock %}
+{% block monTitle %}
+mon titre ma liste des aliments
+{% if isCalorie %}
+avec moins de 50 calories
+{% elseif isGlucide %}
+avec moins de 3g de glucide
+{% endif %}
+{% endblock %}
+
 
 {% block body %}
+<a href="{{path('aliments')}}" class="btn btn-primary">Liste des aliments</a>
+
+<a href="{{path('alimentsByCalorie',{"calorie":50})}}" class="btn btn-primary">Aliment mois de 50 calorie</a>
+<a href="{{path('alimentsByGlucide',{"glucides":5})}}" class="btn btn-primary">Aliment mois de 5 glucide</a>
+
 <div class="row">
     {% for alim in alims %}
     <div class="col-12 col-md-6 col-lg-4 col-xl-3">

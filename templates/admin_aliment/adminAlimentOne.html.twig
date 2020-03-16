@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les aliments{% endblock %}
+{% block monTitle %} Modification de {{alim.name}}{% endblock %}
+
+{% block body %}
+<div class="container">
+{{form_start(form)}}
+<div class="row">
+    <div class="col-6">
+        <img src="{{asset('img/' ~ alim.img)}}" alt="" style="width: 90px">
+        <div>{{form_row(form.img)}}</div>
+        <div>{{form_row(form.name, {"attr" : {'class':'text-danger bg-success'},"label":"Nom de l'aliment"})}}</div>
+    </div>
+    <div class="col-6">
+        {{form_widget(form)}}
+    </div>
+    <button type="submit" class="btn btn-primary"> enregister</button>
+    {{form_end(form)}}
+</div>
+
+
+
+</div>
+
+{% endblock %}
