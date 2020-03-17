@@ -22,7 +22,7 @@ avec moins de 3g de glucide
     <div class="col-12 col-md-6 col-lg-4 col-xl-3">
         <div class="card border-primary mb-3 mx-auto" style="max-width:20rem">
             <div class="card-header text-center">
-                <img src="{{asset('img/'~ alim.img)}}" class="perso_imgAlim card-img-top" alt="">
+                <img src="{{asset('img/aliments/'~ alim.img)}}" class="perso_imgAlim card-img-top" alt="">
             </div>
             <div class="card-body">
                 <h3 class="card-title text-center pb-2 mx-3 border-bottom border-primary">{{alim.name}}</h3>
@@ -49,6 +49,11 @@ avec moins de 3g de glucide
                             <td>Lipide</td>
                             <td>{{alim.lipides}}</td>
                         </tr>
+                        <tr>
+                            <td>Type</td>
+                            <td>{{alim.Type.libelle}}</td>
+                        </tr>
+
                     </table>
                 </p>
             </div>

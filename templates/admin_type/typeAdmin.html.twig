@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AlimentController!{% endblock %}
+{% block myTitle %}Page d'administration Type{% endblock %}
+
+{% block body %}
+
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success">
+        {{message}}
+    </div>
+{% endfor %}
+
+<H1>Administration</H1>
+<table class="table">
+    <tr class="table-primary">
+        <td>Images</td>
+        <td>libelle</td>
+        <td>Action</td>
+    </tr>
+
+    {% for type in types %}
+    <tr>
+        <td><img style="width: 50px"src="{{asset('img/types/' ~ type.imgage)}}" alt=""></td>
+        <td>{{type.libelle}}</td>
+        <td>
+            <a href="{{path('admin.type.modif',{'id': type.id})}}"  class="btn btn-primary">modifier</a>
+            <form action="{{path('admin.type.suppr',{'id' : type.id})}}" method="POST" >
+                <input type="hidden" name ="_method" value="delete">
+                <input type="hidden" name="_token" value="{{csrf_token('SUP' ~ type.id)}}">
+                <button type="submit" class="btn btn-danger"> suppression</button>
+                
+            </form>
+        </td>
+
+    </tr>
+    {% endfor %}
+</table>
+<a href="{{path('admin.type.create')}}" class="btn btn-success"> ajouter</a>
+
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AlimentController!{% endblock %}
+{% block myTitle %}liste des types{% endblock %}
+
+{% block body %}
+
+<div class="row align-items-center" >
+{% for type in types %}
+    <div class="col-6">
+        <div class="row">
+            <div class="col-lg-2 col-md-4 ">
+                <img src="{{asset('img/types/' ~ type.imgage)}}" class="perso_imgAlim img-fluid"">
+            </div>
+            <div>
+                <h4>{{type.libelle}}</h4>
+                
+
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

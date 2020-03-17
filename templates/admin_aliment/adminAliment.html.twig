@@ -4,6 +4,13 @@
 {% block myTitle %}Page d'administration{% endblock %}
 
 {% block body %}
+
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success">
+        {{message}}
+    </div>
+{% endfor %}
+
 <H1>Administration</H1>
 <table class="table">
     <tr class="table-primary">
@@ -14,23 +21,33 @@
         <td>Proteine</td>
         <td>Glucide</td>
         <td>Lipide</td>
+        <td>Type</td>
+
         <td>Action</td>
     </tr>
     {% for alim in aliments %}
     <tr>
-        <td><img style="width: 50px"src="{{asset('img/' ~ alim.img)}}" alt=""></td>
+        <td><img style="width: 50px"src="{{asset('img/aliments/' ~ alim.img)}}" alt=""></td>
         <td>{{alim.name}}</td>
         <td>{{alim.price}}</td>
         <td>{{alim.calorie}}</td>
         <td>{{alim.proteine}}</td>
         <td>{{alim.glucides}}</td>
         <td>{{alim.Lipides}}</td>
+        <td>{{alim.type.libelle}}</td>
+
         <td>
-            <a href="{{path('admin.aliment.one',{'id':alim.id })}}"  class="btn btn-primary">modifier</a>
-            <a href="" class="btn btn-danger">supprimer</a>
+            <a href="{{path('admin.aliment.modif',{'id':alim.id })}}"  class="btn btn-primary">modifier</a>
+            <form action="{{path('admin.aliment.suppr',{'id':alim.id })}}" method="POST"  onsubmit="return comfirm('confirmer la suppression ? ')">
+                <input type="hidden" name = "_method" value="delete">
+                <input type="hidden" name="_token" value="{{csrf_token('SUP' ~ alim.id)}}">
+                <button type="submit" class="btn btn-danger"> suppression</button>
+                
+            </form>
+
         </td>
     </tr>
     {% endfor %}
 </table>
-<a href="" class="btn btn-success"> ajouter</a>
+<a href="{{path('admin.aliment.creation')}}" class="btn btn-success"> ajouter</a>
 {% endblock %}

@@ -24,22 +24,53 @@ class AdminAlimentController extends AbstractController
     }
 
     /**
-     * @Route("/admin/aliment/{id}", name="admin.aliment.one")
+     * route creation
+     * @Route("/admin/aliment/creation", name="admin.aliment.creation")
+     * route modif
+     * @Route("/admin/aliment/{id}", name="admin.aliment.modif",methods="GET|POST")
      */
-    public function showOne(Aliments $alim,Request $req,EntityManagerInterface $man)
+    public function showOne(Aliments $alim = null,Request $req,EntityManagerInterface $man)
     {
+
+
+        if(!$alim){      // si alim est null creation d'un new aliment
+            $alim = new Aliments();
+        }
+
         $form = $this->createForm(AlimentType::class,$alim);//createform recoit le formulaire et en objet l'aliment a modifier
 
         $form->handleRequest($req);
         if($form->isSubmitted() && $form->isValid()){
+            $modif = $alim->getId() !== null;
             $man->persist($alim);
             $man->flush();
+            $this->addFlash('success', ($modif) ? "modification bien effectuer" : "Ajouter avec success" );
             return $this->redirectToRoute('admin_aliment');
             
         }
-        return $this->render('admin_aliment/adminAlimentOne.html.twig',[
+        return $this->render('admin_aliment/adminAlimentMofiCreat.html.twig',[
             'alim'=>$alim,
-            "form"=>$form->createView()
+            "form"=>$form->createView(),
+            "isModif"=> $alim->getId() !== null
         ]);
     }
+
+    /**
+     * @Route("/admin/aliment/{id}", name="admin.aliment.suppr", methods="delete")
+     */
+    public function SupprOne(Aliments $alim,Request $req)
+    
+    {
+        $man = $this->getDoctrine()->getManager();
+        if($this->isCsrfTokenValid("SUP".$alim->getId(),$req->get('_token'))){
+        $man->remove($alim);
+            $man->flush();
+            $this->addFlash('success', "Suppression bien effectuer");
+            return $this->redirectToRoute('admin_aliment');
+
+        }
+    }
+            
+        
+
 }
