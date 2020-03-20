@@ -30,9 +30,20 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
                     <div class="dropdown-menu">
+
+{% if is_granted('ROLE_ADMIN') %}
                         <a class="dropdown-item" href="{{path('admin_aliment')}}">Administration Aliment</a>
                         <a class="dropdown-item" href="{{ path('admin.type') }}">listes des Types</a>
+{% endif %}
+
                         <a class="dropdown-item" href="#">Something else here</a>
+
+                        <a class="nav-link" href="{{ path('login') }}">login</a>
+
+                        <a class="nav-link" href="{{ path('deco') }}">deco</a>
+
+                            
+                        
 
                     </div>
                 </li>

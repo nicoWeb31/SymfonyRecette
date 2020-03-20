@@ -14,8 +14,9 @@ class RegisterType extends AbstractType
     {
         $builder
             ->add('username')
-            ->add('pass',PasswordType::class)
+            ->add('password',PasswordType::class)
             ->add('passVerif',PasswordType::class)
+
 
         ;
     }

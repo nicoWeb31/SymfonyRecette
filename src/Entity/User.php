@@ -32,13 +32,18 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(min=5,max=10,minMessage="il faut plus de 5 carractere",maxMessage="max 10 carractere")
      */
-    private $pass;
+    private $password;
 
     /**
      * @Assert\Length(min=5,max=10,minMessage="il faut plus de 5 carractere",maxMessage="max 10 carractere")
-     * @Assert\EqualTo(propertyPath="pass",message ="mots de pass different")
+     * @Assert\EqualTo(propertyPath="password",message ="mots de pass different")
      */
     private $passVerif;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $roles;
 
     public function getId(): ?int
     {
@@ -57,14 +62,14 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getPass(): ?string
+    public function getPassword(): ?string
     {
-        return $this->pass;
+        return $this->password;
     }
 
-    public function setPass(string $pass): self
+    public function setPassword(string $password): self
     {
-        $this->pass = $pass;
+        $this->password = $password;
 
         return $this;
     }
@@ -99,8 +104,22 @@ class User implements UserInterface
         
     }
 
+
     public function getRoles()
     {
-        return ['ROLE_USER'];
+        return [$this->roles];
+    }
+
+    public function setRoles(string $roles): self
+    {
+        if($roles === null){
+            $this->roles= "ROLE_USER";
+        }else{
+
+            $this->roles = $roles;
+        }
+
+
+        return $this;
     }
 }

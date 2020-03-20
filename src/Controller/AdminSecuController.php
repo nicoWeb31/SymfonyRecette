@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class AdminSecuController extends AbstractController
 {
@@ -22,8 +23,9 @@ class AdminSecuController extends AbstractController
 
         $form->handleRequest($req);
         if($form->isSubmitted() && $form->isValid()){
-            $passCry = $encoder->encodePassword($user,$user->getPass());
-            $user->setPass($passCry);
+            $passCry = $encoder->encodePassword($user,$user->getPassword());
+            $user->setPassword($passCry);
+            $user->setRoles("ROLE_USER");
             $man->persist($user);
             $man->flush();
 
@@ -34,4 +36,25 @@ class AdminSecuController extends AbstractController
             'form'=>$form->createView()
         ]);
     }
+
+    /**
+     * @Route("/connexion", name="login")
+     */
+    public function conexion(AuthenticationUtils $util)
+    {
+
+        return $this->render('admin_secu/connexion.html.twig',[
+            "lastUserName" => $util->getLastUsername(),
+            "error" => $util->getLastAuthenticationError()
+        ]);
+    }
+
+    /**
+     * @Route("/deco", name="deco")
+     */
+    public function deconexion(){}
+
+
+
+
 }
